@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 
-namespace Brickwell.Models
+namespace INTEX2v2.Models
 {
     public class ApplicationUserRole : IdentityUserRole<string>
     {
