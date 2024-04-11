@@ -3,10 +3,10 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace INTEX2v2.Migrations
+namespace Lab414Part2.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialCreate : Migration
+    public partial class CreateIdentitySchema : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -48,46 +48,6 @@ namespace INTEX2v2.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AspNetUsers", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Customers",
-                columns: table => new
-                {
-                    customer_ID = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    username = table.Column<string>(type: "TEXT", nullable: true),
-                    first_name = table.Column<string>(type: "TEXT", nullable: false),
-                    last_name = table.Column<string>(type: "TEXT", nullable: false),
-                    birth_date = table.Column<string>(type: "TEXT", nullable: false),
-                    country_of_residence = table.Column<string>(type: "TEXT", nullable: false),
-                    gender = table.Column<string>(type: "TEXT", nullable: false),
-                    age = table.Column<int>(type: "INTEGER", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Customers", x => x.customer_ID);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Products",
-                columns: table => new
-                {
-                    product_ID = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    name = table.Column<string>(type: "TEXT", nullable: false),
-                    year = table.Column<int>(type: "INTEGER", nullable: false),
-                    num_parts = table.Column<int>(type: "INTEGER", nullable: false),
-                    price = table.Column<int>(type: "INTEGER", nullable: false),
-                    img_link = table.Column<string>(type: "TEXT", nullable: false),
-                    primary_color = table.Column<string>(type: "TEXT", nullable: false),
-                    secondary_color = table.Column<string>(type: "TEXT", nullable: true),
-                    description = table.Column<string>(type: "TEXT", nullable: false),
-                    category = table.Column<string>(type: "TEXT", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Products", x => x.product_ID);
                 });
 
             migrationBuilder.CreateTable(
@@ -196,84 +156,6 @@ namespace INTEX2v2.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
-            migrationBuilder.CreateTable(
-                name: "Orders",
-                columns: table => new
-                {
-                    transaction_ID = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    customer_ID = table.Column<int>(type: "INTEGER", nullable: false),
-                    date = table.Column<string>(type: "TEXT", nullable: false),
-                    day_of_week = table.Column<string>(type: "TEXT", nullable: false),
-                    time = table.Column<int>(type: "INTEGER", nullable: false),
-                    entry_mode = table.Column<string>(type: "TEXT", nullable: false),
-                    amount = table.Column<int>(type: "INTEGER", nullable: false),
-                    type_of_transaction = table.Column<string>(type: "TEXT", nullable: false),
-                    country_of_transaction = table.Column<string>(type: "TEXT", nullable: false),
-                    shipping_address = table.Column<string>(type: "TEXT", nullable: false),
-                    bank = table.Column<string>(type: "TEXT", nullable: false),
-                    type_of_card = table.Column<string>(type: "TEXT", nullable: false),
-                    fraud = table.Column<int>(type: "INTEGER", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Orders", x => x.transaction_ID);
-                    table.ForeignKey(
-                        name: "FK_Orders_Customers_customer_ID",
-                        column: x => x.customer_ID,
-                        principalTable: "Customers",
-                        principalColumn: "customer_ID",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Recommendations",
-                columns: table => new
-                {
-                    product_ID = table.Column<int>(type: "INTEGER", nullable: false),
-                    reccomendation_1 = table.Column<int>(type: "INTEGER", nullable: true),
-                    reccomendation_2 = table.Column<int>(type: "INTEGER", nullable: true),
-                    reccomendation_3 = table.Column<int>(type: "INTEGER", nullable: true),
-                    reccomendation_4 = table.Column<int>(type: "INTEGER", nullable: true),
-                    reccomendation_5 = table.Column<int>(type: "INTEGER", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Recommendations", x => x.product_ID);
-                    table.ForeignKey(
-                        name: "FK_Recommendations_Products_product_ID",
-                        column: x => x.product_ID,
-                        principalTable: "Products",
-                        principalColumn: "product_ID",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "LineItems",
-                columns: table => new
-                {
-                    transaction_ID = table.Column<int>(type: "INTEGER", nullable: false),
-                    product_ID = table.Column<int>(type: "INTEGER", nullable: false),
-                    qty = table.Column<int>(type: "INTEGER", nullable: false),
-                    rating = table.Column<int>(type: "INTEGER", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_LineItems", x => new { x.transaction_ID, x.product_ID });
-                    table.ForeignKey(
-                        name: "FK_LineItems_Orders_transaction_ID",
-                        column: x => x.transaction_ID,
-                        principalTable: "Orders",
-                        principalColumn: "transaction_ID",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_LineItems_Products_product_ID",
-                        column: x => x.product_ID,
-                        principalTable: "Products",
-                        principalColumn: "product_ID",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
                 table: "AspNetRoleClaims",
@@ -310,16 +192,6 @@ namespace INTEX2v2.Migrations
                 table: "AspNetUsers",
                 column: "NormalizedUserName",
                 unique: true);
-
-            migrationBuilder.CreateIndex(
-                name: "IX_LineItems_product_ID",
-                table: "LineItems",
-                column: "product_ID");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Orders_customer_ID",
-                table: "Orders",
-                column: "customer_ID");
         }
 
         /// <inheritdoc />
@@ -341,25 +213,10 @@ namespace INTEX2v2.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "LineItems");
-
-            migrationBuilder.DropTable(
-                name: "Recommendations");
-
-            migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
-
-            migrationBuilder.DropTable(
-                name: "Orders");
-
-            migrationBuilder.DropTable(
-                name: "Products");
-
-            migrationBuilder.DropTable(
-                name: "Customers");
         }
     }
 }
