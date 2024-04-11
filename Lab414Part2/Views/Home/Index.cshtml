@@ -2,7 +2,37 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+@using INTEX2v2.Models
+@using System.Web
+
+
+<h1 class="bg-info text-white">Hej! Build Your Dreams, Brick by Brick.</h1>
+
+
+<h1> Top picks for you: </h1>
+@model List<INTEX2v2.Models.Product> // Assuming Product is your model class
+
+@* <h1>@ViewData["Title"]</h1> *@
+
+<div class="row row-cols-1 row-cols-md-3">
+    @foreach (var product in Model.Take(3)) // Take only the first three products
+    {
+        <div class="col mb-4">
+            <a href="@Url.Action("ProductDetails", "Product", new { id = product.product_ID })" class="card-link">
+                <partial name="ProductInfoCard" model="product" />
+            </a>
+        </div>
+    }
 </div>
+
+@await Html.PartialAsync("_CookieNotification")
+
+
+@if (User?.Identity?.IsAuthenticated ?? false)
+{
+    <a asp-controller="Account" asp-action="Logout" class="btn btn-danger">Logout</a>
+}
