@@ -3,37 +3,62 @@ using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using Microsoft.AspNetCore.Authorization;
 
-namespace Lab414Part2.Controllers
+namespace INTEXv2.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        //private UserManager<AppUser> userManager;
+        //public HomeController(UserManager<AppUser> userMgr)
+        //{
+        //    userManager = userMgr;
+        //}
 
-        public HomeController(ILogger<HomeController> logger)
+        private readonly IProductRepository _productRepository;
+
+        public HomeController(IProductRepository productRepository)
         {
-            _logger = logger;
+            _productRepository = productRepository;
         }
 
         public IActionResult Index()
         {
-            return View();
+            var products = _productRepository.Products.Take(3).ToList();
+            return View(products);
         }
+        //[Authorize]
+        ////[Authorize(Roles = "Manager")]
+        //public async Task<IActionResult> Index()
+        //{
+        //    AppUser user = await userManager.GetUserAsync(HttpContext.User);
+        //    string message = "Hello " + user.UserName;
+        //    return View((object)message);
+        //}
 
-        public IActionResult Privacy()
+        public async Task<IActionResult> Privacy()
         {
             return View();
         }
-        [Authorize]
-        public IActionResult Secrets()
+        //public async Task<IActionResult> Index()
+        //{
+        //    return View();
+        //}
+        public async Task<IActionResult> About()
+        {
+            return View();
+        }
+        public async Task<IActionResult> Login()
+        {
+            return View();
+        }
+        public async Task<IActionResult> Register()
+        {
+            return View();
+        }
+        public async Task<IActionResult> ShoppingCart()
         {
             return View();
         }
 
 
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-        }
     }
 }
