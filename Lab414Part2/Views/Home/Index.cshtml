@@ -1,4 +1,4 @@
-﻿@{
+﻿@* @{
     ViewData["Title"] = "Home Page";
 }
 
@@ -17,10 +17,10 @@
 @model List<INTEX2v2.Models.Product> // Assuming Product is your model class
 
 @* <h1>@ViewData["Title"]</h1> *@
-
+@*
 <div class="row row-cols-1 row-cols-md-3">
     @foreach (var product in Model.Take(3)) // Take only the first three products
-    {
+     {
         <div class="col mb-4">
             <a href="@Url.Action("ProductDetails", "Product", new { id = product.product_ID })" class="card-link">
                 <partial name="ProductInfoCard" model="product" />
@@ -36,3 +36,4 @@
 {
     <a asp-controller="Account" asp-action="Logout" class="btn btn-danger">Logout</a>
 }
+ *@

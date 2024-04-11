@@ -1,4 +1,4 @@
-namespace Lab414Part2.Models
+namespace INTEX2v2.Models
 {
     public class ErrorViewModel
     {

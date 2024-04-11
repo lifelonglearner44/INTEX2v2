@@ -1,4 +1,4 @@
-using Lab414Part2.Data;
+using INTEX2v2.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
