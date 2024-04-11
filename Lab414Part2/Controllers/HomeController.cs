@@ -1,4 +1,4 @@
-using Lab414Part2.Models;
+using INTEX2v2.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using Microsoft.AspNetCore.Authorization;
